@@ -151,9 +151,6 @@ def create():
         last_name = request.form['last_name']
         middle_name = request.form['middle_name']
         password = request.form['password']
-        errors = validate(login, password, last_name, first_name)
-        if errors:
-            return render_template('users/create.html', **errors)
 
         insert_query = '''
             INSERT INTO users (login, last_name, first_name, middle_name, password)
