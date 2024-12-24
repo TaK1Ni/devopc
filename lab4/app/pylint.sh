@@ -14,7 +14,7 @@ if [ $status -eq 1 ]; then
     exit $status
 fi
 echo "Executing bandit"
-output=$(python3 -m bandit -r /. -lll -q)
+output=$(python3 -m bandit -r app/. -lll -q)
 if [ -n "$output" ]; then
     echo "bandit failed"
     status=1

@@ -83,16 +83,14 @@ def validate(login: str, password: str, last_name: str, first_name: str) -> Dict
         errors['fn_message'] = "Имя не должно быть пустым"
     return errors
 
+
 @login_manager.user_loader
 def load_user(user_id):
-    query = 'SELECT * FROM users WHERE users.id=%s'
-    cursor = db.connection().cursor(named_tuple=True)
-    cursor.execute(query, (user_id,))
-    user = cursor.fetchone()
-    cursor.close()
-    if user:
-        return User(user.id, user.login)
-    return None
+    query = 'SELECT * FROM users WHERE id = %s'
+    with db.connection().cursor(named_tuple=True) as cursor:
+        cursor.execute(query, (user_id,))
+        user = cursor.fetchone()
+        return User(user.id, user.login) if user else None
 
 
 @app.route('/')
@@ -133,13 +131,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    query = 'SELECT * FROM users WHERE id = %s'
-    with db.connection().cursor(named_tuple=True) as cursor:
-        cursor.execute(query, (user_id,))
-        user = cursor.fetchone()
-        return User(user.id, user.login) if user else None
+
 
 
 @app.route('/users/create', methods=['POST', 'GET'])
