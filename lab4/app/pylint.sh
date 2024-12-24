@@ -1,7 +1,7 @@
 #/usr/bin/env bash
 
 echo "Executing linter"
-output=$(python3 -m pylint --errors-only app/app.py --disable E0401)
+output=$(python3 -m pylint --errors-only app.py --disable E0401)
 status=0
 if [ -n "$output" ]; then
     status=1
