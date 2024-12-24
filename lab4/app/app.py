@@ -83,17 +83,14 @@ def validate(login: str, password: str, last_name: str, first_name: str) -> Dict
         errors['fn_message'] = "Имя не должно быть пустым"
     return errors
 
+
 @login_manager.user_loader
 def load_user(user_id):
-    query = 'SELECT * FROM users WHERE users.id=%s'
-    cursor = db.connection().cursor(named_tuple=True)
-    cursor.execute(query, (user_id,))
-    user = cursor.fetchone()
-    cursor.close()
-    if user:
-        return User(user.id, user.login)
-    return None
-
+    query = 'SELECT * FROM users WHERE id = %s'
+    with db.connection().cursor(named_tuple=True) as cursor:
+        cursor.execute(query, (user_id,))
+        user = cursor.fetchone()
+        return User(user.id, user.login) if user else None
 
 @app.route('/')
 def index():
@@ -133,13 +130,7 @@ def logout():
     return redirect(url_for('index'))
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    query = 'SELECT * FROM users WHERE id = %s'
-    with db.connection().cursor(named_tuple=True) as cursor:
-        cursor.execute(query, (user_id,))
-        user = cursor.fetchone()
-        return User(user.id, user.login) if user else None
+
 
 
 @app.route('/users/create', methods=['POST', 'GET'])
@@ -151,9 +142,6 @@ def create():
         last_name = request.form['last_name']
         middle_name = request.form['middle_name']
         password = request.form['password']
-        errors = validate(login, password, last_name, first_name)
-        if errors:
-            return render_template('users/create.html', **errors)
 
         insert_query = '''
             INSERT INTO users (login, last_name, first_name, middle_name, password)
