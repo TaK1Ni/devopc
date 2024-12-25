@@ -92,6 +92,7 @@ def load_user(user_id):
         user = cursor.fetchone()
         return User(user.id, user.login) if user else None
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
