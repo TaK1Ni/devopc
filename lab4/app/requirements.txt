@@ -1,4 +1,4 @@
-alembic==1.13.1
+﻿alembic==1.13.1
 astroid==3.3.6
 bandit==1.8.0
 blinker==1.8.2
