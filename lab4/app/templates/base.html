@@ -34,9 +34,9 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav ms-auto">
                 {% if current_user.is_authenticated%}
-                  <a class="nav-link" href="{{url_for('change')}}">Сменить пароль</a>
-                  <a class="nav-link" href="{{url_for('show_users')}}">Список пользователей</a>
-                  <a class="nav-link" href="{{url_for('create')}}">Создать</a>
+                  <a class="nav-link" >Сменить пароль</a>
+                  <a class="nav-link" >Список пользователей</a>
+                  <a class="nav-link" >Создать</a>
                   <a class="nav-link" href="{{url_for('logout')}}">Выход</a>
                 {% else %}
                   <a  class="nav-link" href="{{url_for('login')}}">Вход</a>

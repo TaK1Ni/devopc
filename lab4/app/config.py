@@ -1,5 +1,9 @@
-SECRET_KEY = 'f038a541489b89f81762d12edfdd03835ceea10cfb3cdbdabfbfa0f48b0d4802'
-MYSQL_USER = 'std_2428_351'
-MYSQL_PASSWORD = '12345678'
-MYSQL_HOST = 'std-mysql.ist.mospolytech.ru'
-MYSQL_DATABASE = 'std_2428_351'
+SECRET_KEY = 'test'
+# MYSQL_USER = 'test'
+# MYSQL_PASSWORD = 'test'
+# MYSQL_HOST = '172.16.0.11'
+# MYSQL_DATABASE = 'test'
+
+SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://test:test@192.168.1.4/test'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_ECHO = True
