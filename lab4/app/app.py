@@ -116,7 +116,7 @@ def login():
                     login_user(User(user.id, user.login), remember=check)
                     next_url = request.args.get('next') or url_for('index')
                     flash('Вы успешно вошли!', 'success')
-                    return redirect(next_url)
+                    return make_response(203)
                 else:
                     flash('Неверные учетные данные.', 'danger')
         except mysql.connector.errors.DatabaseError:
